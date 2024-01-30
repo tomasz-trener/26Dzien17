@@ -5,6 +5,11 @@
 
 <h3>ProductsList</h3>
 
+<p>
+    @* <a href="products/newProduct">New Product</a> *@
+    <NavLink href="products/createProduct" class="btn btn-primary">New Product</NavLink>
+</p>
+
 @if (products == null)
 {
     <p><em>@message</em></p>
