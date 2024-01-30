@@ -47,6 +47,10 @@ else
             }
         </tbody>
     </table>
+
+    <button class="btn btn-primary" @onclick="PreviousPage" >Previous</button>
+    <span>@currentPage</span>
+    <button class="btn btn-primary" @onclick="NextPage" >Next</button>
 }
 
 
@@ -55,6 +59,9 @@ else
     private List<Product> products;
     private string message= "Loading products...";
     private string searchTerm = string.Empty;
+
+    private int currentPage = 1;
+    private int pageSize = 10;
 
     protected override async Task OnInitializedAsync()
     {
@@ -81,7 +88,7 @@ else
 
     private async Task Search()
     {
-        var response = await ProductService.SearchProductsAsync(searchTerm,1,10);
+        var response = await ProductService.SearchProductsAsync(searchTerm, currentPage, pageSize);
         if (response.Success)
         {
             products = response.Data;
@@ -89,6 +96,21 @@ else
         else
         {
             message = response.Message;
+        }
+    }
+
+    private async Task NextPage()
+    {
+        currentPage++;
+        await Search();
+    }
+
+private async Task PreviousPage()
+    {
+        if (currentPage > 1)
+        {
+            currentPage--;
+            await Search();
         }
     }
 
