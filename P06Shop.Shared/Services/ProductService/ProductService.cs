@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using P04WeatherForecastWPF.Client.Confguration;
 using P06Shop.Shared;
-using P06Shop.Shared.Services.ProductService;
+using P06Shop.Shared.Confguration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P04WeatherForecastWPF.Client.Services
+namespace P06Shop.Shared.Services.ProductService
 {
     public class ProductService : IProductService
     {
@@ -50,7 +49,7 @@ namespace P04WeatherForecastWPF.Client.Services
 
         public async Task<ServiceReponse<List<Product>>> GetProductsAsync()
         {
-            var response= await _httpClient.GetAsync(_appSettings.ProductEndpoint.GetProducts);
+            var response = await _httpClient.GetAsync(_appSettings.ProductEndpoint.GetProducts);
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<ServiceReponse<List<Product>>>(json);
             return result;

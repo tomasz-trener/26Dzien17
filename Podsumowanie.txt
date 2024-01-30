@@ -1,0 +1,9 @@
+﻿1) Wstęp do Blazor 
+ - poznanie sposóbów komunikacji zmiennych z formularzem
+ - bindowanie danych
+ - walidacja danych
+
+2) Rozbudowa aplikacji o komunikacje z API 
+ - dodanie referencji do Shared (product service)
+ - dodanie komponentu `ProductList`
+ - dodanie CORS do API

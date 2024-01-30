@@ -1,6 +1,6 @@
 ﻿using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Audio;
-using P04WeatherForecastWPF.Client.Confguration;
+using P06Shop.Shared.Confguration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

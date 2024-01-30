@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using P04WeatherForecastWPF.Client.Confguration;
-using P04WeatherForecastWPF.Client.Services;
+using P06Shop.Shared.Confguration;
 using P06Shop.Shared.Services.ProductService;
 
 var builder = WebApplication.CreateBuilder(args);

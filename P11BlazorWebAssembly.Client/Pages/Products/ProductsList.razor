@@ -1,0 +1,21 @@
+﻿@page "/products/productslist"
+
+@inject IProductService ProductService
+
+<h3>ProductsList</h3>
+
+@code {
+    private List<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadProducts();
+    }
+   
+    private async Task LoadProducts()
+    {
+        var response =  await ProductService.GetProductsAsync();
+    }
+
+
+}

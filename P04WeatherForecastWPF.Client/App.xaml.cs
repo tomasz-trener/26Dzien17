@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using P04WeatherForecastWPF.Client.Confguration;
 using P04WeatherForecastWPF.Client.MessageBox;
 using P04WeatherForecastWPF.Client.Services;
 using P04WeatherForecastWPF.Client.ViewModels;
+using P06Shop.Shared.Confguration;
 using P06Shop.Shared.MessageBox;
 using P06Shop.Shared.Services.ProductService;
 using System.Configuration;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using P05Shop.API.Models;
-using P05Shop.API.Services;
+ 
 using P06Shop.Shared.Services.ProductService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,11 +17,35 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AzureDBConnection"));
 });
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductService,P05Shop.API.Services.ProductService>();
 
 // addScoped - oznacza, że w trakcie jednego requestu będzie istniała tylko jedna instancja klasy ProductService
 // addTransient - oznacza, że obiekt będzie tworzony za każdym razem, gdy odwolujemy się do niego
 // addSingleton - oznacza, że obiekt będzie tworzony tylko raz i będzie istniał tak długo, jak długo istnieje aplikacja
+
+
+// pozwalamy na wykonywanie zapytań z innych domen
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin();
+        builder.AllowAnyMethod();
+        builder.AllowAnyHeader();
+    });
+});
+// gdybysmy chcieli ograniczyc dostep do API tylko do naszej aplikacji, to wtedy:
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAll", builder =>
+//    {
+//        builder.WithOrigins("http://mySite.pl");
+//        builder.AllowAnyMethod();
+//        builder.AllowAnyHeader();
+//    });
+//});
+
+
 
 var app = builder.Build();
 
@@ -33,6 +57,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
