@@ -59,10 +59,10 @@ namespace P06Shop.Shared.Services.ProductService
         {
             try
             {
-                string searchUrl = _appSettings.ProductEndpoint.BaseUrl + _appSettings.ProductEndpoint.SearchProducts;
+                string searchUrl = _appSettings.ProductEndpoint.SearchProducts;
                 string query = string.IsNullOrEmpty(text) ? "" : $"{text}/";
                 query += $"{page}/{pageSize}";
-                var response = await _httpClient.GetAsync("search/" + query);
+                var response = await _httpClient.GetAsync(searchUrl +"/" + query);
                 if (!response.IsSuccessStatusCode)
                 {
                     return new ServiceReponse<List<Product>>
