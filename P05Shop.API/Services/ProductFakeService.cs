@@ -40,6 +40,11 @@ namespace P05Shop.API.Services
             return result;
         }
 
+        public Task<ServiceReponse<List<Product>>> SearchProductsAsync(string text, int page, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<ServiceReponse<Product>> UpdateProductAsync(Product updatedProduct)
         {
             throw new NotImplementedException();

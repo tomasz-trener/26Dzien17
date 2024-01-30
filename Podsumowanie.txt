@@ -10,3 +10,6 @@
  - dodanie obsługi CRUD 
 	- dodanie komponentu `EditProduct`
 	- dodanie komponentu `CreateProduct`
+	- wyniesienie komponentu `ProductForm` jako komponentu współdzielonego
+	- dodanie opcja `DeleteProduct`
+	- dodanie opcji filtrowania produktów

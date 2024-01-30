@@ -12,5 +12,7 @@ namespace P06Shop.Shared.Confguration
         public string GetProducts { get; set; }
         public string CreateProduct { get; internal set; }
         public string? UpdateProduct { get; internal set; }
+
+        public string? SearchProducts { get; internal set; }
     }
 }

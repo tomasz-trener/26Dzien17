@@ -16,6 +16,12 @@
 }
 else
 {
+    <div>
+        <InputText @bind-Value="searchTerm" />
+        <button class="btn btn-primary" @onclick="Search">Search</button>
+    </div>
+
+
     <table class="table">
         <thead>
             <tr>
@@ -48,6 +54,7 @@ else
 @code {
     private List<Product> products;
     private string message= "Loading products...";
+    private string searchTerm = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -72,5 +79,17 @@ else
         NavigationManager.NavigateTo($"products/editProduct/{id}");
     }
 
+    private async Task Search()
+    {
+        var response = await ProductService.SearchProductsAsync(searchTerm,1,10);
+        if (response.Success)
+        {
+            products = response.Data;
+        }
+        else
+        {
+            message = response.Message;
+        }
+    }
 
 }

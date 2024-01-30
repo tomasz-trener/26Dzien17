@@ -13,6 +13,8 @@ namespace P06Shop.Shared.Services.ProductService
         Task<ServiceReponse<bool>> DeleteProductAsync(int id);
         Task<ServiceReponse<Product>> UpdateProductAsync(Product updatedProduct);
         Task<ServiceReponse<Product>> GetProductAsync(int id);
+
+        Task<ServiceReponse<List<Product>>> SearchProductsAsync(string text, int page, int pageSize);
      
     }
 }

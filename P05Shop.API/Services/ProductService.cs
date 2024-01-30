@@ -205,5 +205,45 @@ namespace P05Shop.API.Services
 
             return result;
         }
+
+        public async Task<ServiceReponse<List<Product>>> SearchProductsAsync(string text, int page, int pageSize)
+        {
+            IQueryable<Product> query= _dataContext.Products;
+
+            if (!string.IsNullOrEmpty(text))
+            {
+                query = query.Where(p => p.Title.Contains(text) || p.Description.Contains(text));
+            }
+
+            try
+            {
+                var products = await query
+                .Skip(pageSize * (page - 1))
+                .Take(pageSize)
+                .ToListAsync();
+
+                var response = new ServiceReponse<List<Product>>()
+                {
+                    Data = products,
+                    Success = true,
+                    Message = "Data retrieved successfully"
+                };
+                return response;
+            }
+            catch (Exception)
+            {
+                 var response = new ServiceReponse<List<Product>>()
+                 {
+                      Data = null,
+                      Success = false,
+                      Message = "Error retrieving data from the database"
+                 };
+                 return response;   
+            }
+
+            
+
+
+        }
     }
 }

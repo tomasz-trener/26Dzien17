@@ -86,6 +86,18 @@ namespace P05Shop.API.Controllers
             else
                 return StatusCode(500, $"Internal server error {result.Message}");
         }
+
+        [HttpGet("search/{text}/{page}/{pageSize}")]
+        [HttpGet("search/{page}/{pageSize}")]
+        public async Task<ActionResult<ServiceReponse<List<Product>>>> SearchProducts([FromRoute] string? text =null, [FromRoute] int page=1, [FromRoute] int pageSize=10)
+        {
+            var result = await _productService.SearchProductsAsync(text, page, pageSize);
+
+            if (result.Success)
+                return Ok(result);
+            else
+                return StatusCode(500, $"Internal server error {result.Message}");
+        }
     }
 
 

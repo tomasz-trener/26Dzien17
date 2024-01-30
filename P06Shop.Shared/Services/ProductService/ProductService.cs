@@ -55,6 +55,50 @@ namespace P06Shop.Shared.Services.ProductService
             return result;
         }
 
+        public async Task<ServiceReponse<List<Product>>> SearchProductsAsync(string text, int page, int pageSize)
+        {
+            try
+            {
+                string searchUrl = _appSettings.ProductEndpoint.BaseUrl + _appSettings.ProductEndpoint.SearchProducts;
+                string query = string.IsNullOrEmpty(text) ? "" : $"/{text}";
+                query += $"/{page}/{pageSize}";
+                var response = await _httpClient.GetAsync("/" + _appSettings.BaseApiUrl + query);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new ServiceReponse<List<Product>>
+                    {
+                        Success = false,
+                        Message = response.ReasonPhrase
+                    };
+                }
+
+                var json = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<ServiceReponse<List<Product>>>(json)
+                    ?? new ServiceReponse<List<Product>>() { Success = false, Message = "Deserialization failed" };
+
+                result.Success = result.Success && result.Data != null;
+
+                return result;
+            }
+            catch (JsonException)
+            {
+                return new ServiceReponse<List<Product>>
+                {
+                    Success = false,
+                    Message = "Deserialization failed"
+                };
+                
+            }catch(Exception ex)
+            {
+                return new ServiceReponse<List<Product>>
+                {
+                    Success = false,
+                    Message = ex.Message
+                };
+            }
+
+        }
+
         public async Task<ServiceReponse<Product>> UpdateProductAsync(Product updatedProduct)
         {
             var response = await _httpClient.PutAsJsonAsync(_appSettings.ProductEndpoint.UpdateProduct, updatedProduct);
